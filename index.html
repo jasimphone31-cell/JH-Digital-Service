@@ -22,222 +22,76 @@
     margin: 0;
     background: var(--ink);
     color: var(--text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
   }
-  .wrap {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 32px 20px 80px;
-  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
   header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 20px;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-    gap: 16px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 28px;
+    flex-wrap: wrap; gap: 16px;
   }
   h1 {
-    font-family: 'Oswald', 'Arial Narrow', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    font-size: 34px;
-    margin: 0;
+    font-weight: 800; letter-spacing: 0.5px; font-size: 32px; margin: 0;
     text-transform: uppercase;
   }
-  .tagline {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 4px;
-    letter-spacing: 0.3px;
-  }
+  .tagline { color: var(--muted); font-size: 13px; margin-top: 4px; }
   .pass {
-    background: var(--surface);
-    border: 1px dashed var(--stamp-dim);
-    border-radius: 8px;
-    padding: 12px 18px;
-    min-width: 210px;
-    position: relative;
+    background: var(--surface); border: 1px dashed var(--stamp-dim);
+    border-radius: 8px; padding: 12px 18px; min-width: 210px;
   }
-  .pass-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-  .pass-points {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 26px;
-    color: var(--stamp);
-    font-weight: 700;
-    line-height: 1;
-  }
-  .pass-sub {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-  .progress-track {
-    height: 4px;
-    background: var(--line);
-    border-radius: 2px;
-    margin-top: 8px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--stamp);
-    transition: width 0.4s ease;
-  }
-  .section-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--muted);
-    margin: 0 0 14px 2px;
-  }
-  .board {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-    margin-bottom: 40px;
-  }
+  .pass-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 6px; }
+  .pass-points { font-family: monospace; font-size: 26px; color: var(--stamp); font-weight: 700; line-height: 1; }
+  .pass-sub { font-family: monospace; font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .progress-track { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--stamp); transition: width 0.4s ease; }
+  .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin: 0 0 14px 2px; }
+  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px; }
   .ticket {
-    background: var(--surface);
-    border-radius: 10px;
-    border: 1px solid var(--line);
-    overflow: hidden;
-    position: relative;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    background: var(--surface); border-radius: 10px; border: 1px solid var(--line);
+    overflow: hidden; position: relative; transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  .ticket.punched {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  .ticket-top {
-    padding: 16px 16px 14px;
-  }
-  .ticket-link {
-    color: var(--text);
-    font-size: 14px;
-    word-break: break-all;
-    text-decoration: none;
-    display: block;
-    line-height: 1.4;
-  }
+  .ticket.punched { opacity: 0; transform: scale(0.92); }
+  .ticket-top { padding: 16px 16px 14px; }
+  .ticket-link { color: var(--text); font-size: 14px; word-break: break-all; text-decoration: none; display: block; line-height: 1.4; }
   .ticket-link:hover { color: var(--stamp); }
-  .perforation {
-    position: relative;
-    border-top: 1px dashed var(--line);
-    margin: 0 16px;
-  }
+  .perforation { position: relative; border-top: 1px dashed var(--line); margin: 0 16px; }
   .perforation::before, .perforation::after {
-    content: '';
-    position: absolute;
-    top: -7px;
-    width: 14px;
-    height: 14px;
-    background: var(--ink);
-    border-radius: 50%;
+    content: ''; position: absolute; top: -7px; width: 14px; height: 14px;
+    background: var(--ink); border-radius: 50%;
   }
   .perforation::before { left: -23px; }
   .perforation::after { right: -23px; }
-  .ticket-bottom {
-    padding: 14px 16px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  .ticket-bottom { padding: 14px 16px 16px; display: flex; align-items: center; justify-content: space-between; }
   .like-btn {
-    background: var(--stamp);
-    color: var(--ink);
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    letter-spacing: 0.3px;
+    background: var(--stamp); color: var(--ink); border: none; border-radius: 6px;
+    padding: 8px 14px; font-weight: 700; font-size: 13px; cursor: pointer;
   }
   .like-btn:hover { filter: brightness(1.08); }
-  .like-btn:disabled {
-    background: var(--surface-raised);
-    color: var(--muted);
-    cursor: default;
-  }
-  .count {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--muted);
-  }
+  .like-btn:disabled { background: var(--surface-raised); color: var(--muted); cursor: default; }
+  .count { font-family: monospace; font-size: 13px; color: var(--muted); }
   .count b { color: var(--text); }
-  form.submit {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 20px;
-  }
+  form.submit { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
   form.submit input {
-    width: 100%;
-    background: var(--ink);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 12px 14px;
-    color: var(--text);
-    font-size: 14px;
-    margin-bottom: 12px;
+    width: 100%; background: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+    padding: 12px 14px; color: var(--text); font-size: 14px; margin-bottom: 12px;
   }
   form.submit input:focus { outline: 2px solid var(--stamp); border-color: transparent; }
   form.submit button {
-    background: var(--stamp);
-    color: var(--ink);
-    border: none;
-    border-radius: 6px;
-    padding: 12px 20px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
+    background: var(--stamp); color: var(--ink); border: none; border-radius: 6px;
+    padding: 12px 20px; font-weight: 700; font-size: 14px; cursor: pointer;
   }
-  form.submit button:disabled {
-    background: var(--surface-raised);
-    color: var(--muted);
-    cursor: default;
-  }
+  form.submit button:disabled { background: var(--surface-raised); color: var(--muted); cursor: default; }
   .hint { font-size: 12px; color: var(--muted); margin-top: 10px; }
-  .empty {
-    text-align: center;
-    padding: 50px 20px;
-    color: var(--muted);
-    font-size: 14px;
-  }
+  .empty { text-align: center; padding: 50px 20px; color: var(--muted); font-size: 14px; }
   .admin-tag {
-    display: inline-block;
-    font-size: 10px;
-    background: var(--danger);
-    color: var(--ink);
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 8px;
-    letter-spacing: 0.5px;
+    display: inline-block; font-size: 10px; background: var(--danger); color: var(--ink);
+    padding: 2px 8px; border-radius: 4px; margin-left: 8px;
   }
   .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--surface-raised);
-    border: 1px solid var(--stamp);
-    color: var(--text);
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 13px;
-    opacity: 0;
-    pointer-events: none;
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--surface-raised); border: 1px solid var(--stamp); color: var(--text);
+    padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; pointer-events: none;
     transition: opacity 0.3s ease;
   }
   .toast.show { opacity: 1; }
@@ -248,7 +102,7 @@
   <header>
     <div>
       <h1>Exchange Board</h1>
-      <div class="tagline" id="tagline">10 likes given = 1 pass. 1 pass = your video goes on the board.</div>
+      <div class="tagline">10 likes given = 1 pass. 1 pass = your video goes on the board.</div>
     </div>
     <div class="pass">
       <div class="pass-label">Your Pass</div>
@@ -257,6 +111,10 @@
       <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
   </header>
+
+  <div id="statusBanner" style="background:#262B35;border:1px solid #E8A33D;color:#F2EFE9;padding:10px 14px;border-radius:8px;margin-bottom:20px;font-size:13px;font-family:monospace;">
+    Connecting to database...
+  </div>
 
   <div class="section-label">On the board <span id="adminBadge"></span></div>
   <div class="board" id="board"></div>
@@ -272,13 +130,51 @@
 <div class="toast" id="toast"></div>
 
 <script>
+  window.addEventListener('error', function(e) {
+    var b = document.getElementById('statusBanner');
+    if (b) {
+      b.style.border = '1px solid #C1594F';
+      b.textContent = 'PAGE ERROR: ' + (e.message || 'unknown error');
+    }
+  });
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getDatabase, ref, push, get, update, remove, onValue, runTransaction
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+// ---- Your Firebase config ----
+const firebaseConfig = {
+  apiKey: "AIzaSyAgiXTs87Yk_ObicjusvcaBy84NJUWwUyM",
+  authDomain: "exchange-board-3f15d.firebaseapp.com",
+  databaseURL: "https://exchange-board-3f15d-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "exchange-board-3f15d",
+  storageBucket: "exchange-board-3f15d.firebasestorage.app",
+  messagingSenderId: "98367302176",
+  appId: "1:98367302176:web:ae28940d6fcfa92addea45"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 const LIKES_PER_PASS = 10;
 const LIKES_TO_GRADUATE = 10;
 const isAdmin = new URLSearchParams(location.search).get('admin') === '1';
 
-let myId = null;
-let personal = { likesGiven: 0, pointsSpent: 0, likedIds: [] };
-let videos = [];
+// ---- Identify this browser/user (stored locally, no login needed) ----
+function getMyId() {
+  let id = localStorage.getItem('exchange-my-id');
+  if (!id) {
+    id = 'u_' + Math.random().toString(36).slice(2, 11);
+    localStorage.setItem('exchange-my-id', id);
+  }
+  return id;
+}
+const myId = getMyId();
+
+let currentVideos = {};
+let myProgress = { likesGiven: 0, pointsSpent: 0 };
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -287,86 +183,18 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-function uid() {
-  return 'u_' + Math.random().toString(36).slice(2, 11);
-}
-
-async function loadMyId() {
-  try {
-    const res = await window.storage.get('my-id', false);
-    myId = res.value;
-  } catch {
-    myId = uid();
-    await window.storage.set('my-id', myId, false);
-  }
-}
-
-async function loadPersonal() {
-  try {
-    const res = await window.storage.get('my-progress', false);
-    personal = JSON.parse(res.value);
-  } catch {
-    personal = { likesGiven: 0, pointsSpent: 0, likedIds: [] };
-    await window.storage.set('my-progress', JSON.stringify(personal), false);
-  }
-}
-
-async function savePersonal() {
-  await window.storage.set('my-progress', JSON.stringify(personal), false);
-}
-
-async function loadVideos() {
-  try {
-    const res = await window.storage.get('videos', true);
-    videos = JSON.parse(res.value);
-  } catch {
-    videos = [];
-    await window.storage.set('videos', JSON.stringify(videos), true);
-  }
-}
-
-async function saveVideos() {
-  await window.storage.set('videos', JSON.stringify(videos), true);
-}
-
 function availablePoints() {
-  const earned = Math.floor(personal.likesGiven / LIKES_PER_PASS);
-  return Math.max(0, earned - personal.pointsSpent);
+  const earned = Math.floor(myProgress.likesGiven / LIKES_PER_PASS);
+  return Math.max(0, earned - myProgress.pointsSpent);
 }
 
-function render() {
+function renderPass() {
   const pts = availablePoints();
   document.getElementById('pointsDisplay').textContent = pts;
-  const inCycle = personal.likesGiven % LIKES_PER_PASS;
+  const inCycle = myProgress.likesGiven % LIKES_PER_PASS;
   document.getElementById('progressText').textContent = `${inCycle} / ${LIKES_PER_PASS} likes given`;
   document.getElementById('progressFill').style.width = `${(inCycle / LIKES_PER_PASS) * 100}%`;
-
   document.getElementById('adminBadge').innerHTML = isAdmin ? '<span class="admin-tag">ADMIN MODE</span>' : '';
-
-  const board = document.getElementById('board');
-  board.innerHTML = '';
-  if (videos.length === 0) {
-    board.innerHTML = '<div class="empty">Board is empty. Be the first to add a video.</div>';
-  } else {
-    videos.forEach(v => {
-      const alreadyLiked = v.likedBy.includes(myId);
-      const card = document.createElement('div');
-      card.className = 'ticket';
-      card.innerHTML = `
-        <div class="ticket-top">
-          <a class="ticket-link" href="${v.link}" target="_blank" rel="noopener noreferrer">${v.link}</a>
-        </div>
-        <div class="perforation"></div>
-        <div class="ticket-bottom">
-          <button class="like-btn" ${alreadyLiked ? 'disabled' : ''} data-id="${v.id}">
-            ${alreadyLiked ? 'Liked' : 'Like'}
-          </button>
-          <span class="count"><b>${v.likes}</b> / ${LIKES_TO_GRADUATE}</span>
-        </div>
-      `;
-      board.appendChild(card);
-    });
-  }
 
   const submitBtn = document.getElementById('submitBtn');
   const hint = document.getElementById('submitHint');
@@ -379,28 +207,78 @@ function render() {
   }
 }
 
+function renderBoard() {
+  const board = document.getElementById('board');
+  const entries = Object.entries(currentVideos);
+  board.innerHTML = '';
+  if (entries.length === 0) {
+    board.innerHTML = '<div class="empty">Board is empty. Be the first to add a video.</div>';
+    return;
+  }
+  entries.forEach(([id, v]) => {
+    const likedBy = v.likedBy || {};
+    const alreadyLiked = !!likedBy[myId];
+    const card = document.createElement('div');
+    card.className = 'ticket';
+    card.innerHTML = `
+      <div class="ticket-top">
+        <a class="ticket-link" href="${v.link}" target="_blank" rel="noopener noreferrer">${v.link}</a>
+      </div>
+      <div class="perforation"></div>
+      <div class="ticket-bottom">
+        <button class="like-btn" ${alreadyLiked ? 'disabled' : ''} data-id="${id}">
+          ${alreadyLiked ? 'Liked' : 'Like'}
+        </button>
+        <span class="count"><b>${v.likes || 0}</b> / ${LIKES_TO_GRADUATE}</span>
+      </div>
+    `;
+    board.appendChild(card);
+  });
+}
+
+// ---- Real-time listeners ----
+const statusBanner = document.getElementById('statusBanner');
+
+onValue(ref(db, 'videos'), (snapshot) => {
+  currentVideos = snapshot.val() || {};
+  renderBoard();
+  statusBanner.style.display = 'none';
+}, (error) => {
+  statusBanner.style.border = '1px solid #C1594F';
+  statusBanner.textContent = 'ERROR: ' + error.message;
+});
+
+onValue(ref(db, 'users/' + myId), (snapshot) => {
+  myProgress = snapshot.val() || { likesGiven: 0, pointsSpent: 0 };
+  renderPass();
+}, (error) => {
+  statusBanner.style.border = '1px solid #C1594F';
+  statusBanner.textContent = 'ERROR: ' + error.message;
+});
+
+// ---- Like a video ----
 async function handleLike(videoId) {
-  const v = videos.find(x => x.id === videoId);
-  if (!v || v.likedBy.includes(myId)) return;
+  const videoRef = ref(db, 'videos/' + videoId);
 
-  v.likedBy.push(myId);
-  v.likes += 1;
-  personal.likesGiven += 1;
-  personal.likedIds.push(videoId);
+  const result = await runTransaction(videoRef, (video) => {
+    if (!video) return video; // already removed by someone else
+    if (video.likedBy && video.likedBy[myId]) return; // abort, already liked
+    video.likes = (video.likes || 0) + 1;
+    video.likedBy = video.likedBy || {};
+    video.likedBy[myId] = true;
+    return video;
+  });
 
-  if (v.likes >= LIKES_TO_GRADUATE) {
-    const card = [...document.querySelectorAll('.like-btn')].find(b => b.dataset.id === videoId)?.closest('.ticket');
-    if (card) card.classList.add('punched');
-    videos = videos.filter(x => x.id !== videoId);
+  if (!result.committed) return; // someone already liked it or it's gone
+
+  // bump my likesGiven counter
+  await runTransaction(ref(db, 'users/' + myId + '/likesGiven'), (n) => (n || 0) + 1);
+
+  const updatedVideo = result.snapshot.val();
+  if (updatedVideo && updatedVideo.likes >= LIKES_TO_GRADUATE) {
+    await remove(videoRef);
     showToast('Video graduated off the board 🎟️');
   }
-
-  await Promise.all([saveVideos(), savePersonal()]);
-  setTimeout(render, videos.find(x => x.id === videoId) ? 0 : 500);
-  if (personal.likesGiven % LIKES_PER_PASS === 0) {
-    showToast('New pass earned!');
-  }
-  render();
 }
 
 document.getElementById('board').addEventListener('click', (e) => {
@@ -408,34 +286,29 @@ document.getElementById('board').addEventListener('click', (e) => {
   if (btn && !btn.disabled) handleLike(btn.dataset.id);
 });
 
+// ---- Submit a new video ----
 document.getElementById('submitForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const input = document.getElementById('videoLink');
   const link = input.value.trim();
   if (!link) return;
 
-  const pts = availablePoints();
-  if (pts <= 0 && !isAdmin) {
-    showToast('You need a pass first — like some videos.');
-    return;
+  if (!isAdmin) {
+    const userRef = ref(db, 'users/' + myId);
+    const snap = await get(userRef);
+    const data = snap.val() || { likesGiven: 0, pointsSpent: 0 };
+    const pts = Math.floor(data.likesGiven / LIKES_PER_PASS) - (data.pointsSpent || 0);
+    if (pts <= 0) {
+      showToast('You need a pass first — like some videos.');
+      return;
+    }
+    await runTransaction(ref(db, 'users/' + myId + '/pointsSpent'), (n) => (n || 0) + 1);
   }
-  if (!isAdmin) personal.pointsSpent += 1;
 
-  videos.push({ id: uid(), link, likes: 0, likedBy: [], addedBy: myId });
-  await Promise.all([saveVideos(), savePersonal()]);
+  await push(ref(db, 'videos'), { link, likes: 0, likedBy: {}, addedBy: myId });
   input.value = '';
   showToast('Video added to the board.');
-  render();
 });
-
-async function init() {
-  await loadMyId();
-  await loadPersonal();
-  await loadVideos();
-  render();
-}
-
-init();
 </script>
 </body>
-</html>
+</html>                  
