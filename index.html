@@ -3,505 +3,290 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jh Digital Service</title>
+<title>JH Digital Service</title>
 <style>
   :root {
-    --ink: #14171C;
-    --surface: #1D2129;
-    --surface-raised: #262B35;
-    --stamp: #E8A33D;
-    --stamp-dim: #6b5527;
-    --success: #4C9A6A;
-    --text: #F2EFE9;
-    --muted: #8B90A0;
-    --line: #363C48;
-    --danger: #C1594F;
+    --bg: #0c0716;
+    --bg-2: #150c26;
+    --card: #1a1030;
+    --card-2: #201538;
+    --line: #33234f;
+    --pink: #ff2e9a;
+    --pink-2: #ff6bc1;
+    --violet: #8b3ee8;
+    --blue: #3ec6ff;
+    --text: #f3eefc;
+    --muted: #a99cc4;
+    --danger: #ff5c7a;
   }
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  background: linear-gradient(135deg,#0f172a,#111827,#1e293b);
-}
-
-.wrap{
-  background: rgba(255,255,255,.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.5);
-}
-
-
-
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    background: linear-gradient(135deg,#0f172a,#111827,#1e293b);
+    background: radial-gradient(circle at 20% 0%, #241238 0%, var(--bg) 55%);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
   }
-  .wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
-  header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 28px;
-    flex-wrap: wrap; gap: 16px;
+  a { text-decoration: none; color: inherit; }
+  .grad-text {
+    background: linear-gradient(90deg, var(--pink) 0%, var(--violet) 60%, var(--blue) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-   h1{
-    font-size:52px;
-    font-weight:900;
-    text-align:center;
-    line-height:1.1;
-    background:linear-gradient(90deg,#ff4fd8,#7b5cff,#00e5ff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    text-shadow:0 0 35px rgba(255,79,216,.35);}
-  
-  .tagline { color: var(--muted); font-size: 13px; margin-top: 4px; }
-   .pass{
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(0,229,255,.25);
-    border-radius: 18px;
-    padding: 20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 20px rgba(0,229,255,.15);
-    transition: all .3s ease;
-}
+  .btn-gradient {
+    background: linear-gradient(90deg, var(--pink), var(--blue));
+    color: #0c0716; border: none; border-radius: 10px; padding: 13px 22px;
+    font-weight: 800; font-size: 14px; cursor: pointer;
+  }
+  .btn-gradient:disabled { opacity: 0.5; cursor: default; }
+  .btn-outline {
+    background: transparent; border: 1px solid var(--pink); color: var(--pink-2);
+    border-radius: 20px; padding: 8px 18px; font-weight: 700; font-size: 13px; cursor: pointer;
+  }
 
-.pass:hover{
-    transform: translateY(-4px);
-    box-shadow: 0 0 40px rgba(0,229,255,.4);
-}
-  .pass-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 6px; }
-  .pass-points { font-family: monospace; font-size: 26px; color: var(--stamp); font-weight: 700; line-height: 1; }
-  .pass-sub { font-family: monospace; font-size: 11px; color: var(--muted); margin-top: 6px; }
-  .progress-track { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--stamp); transition: width 0.4s ease; }
-  .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin: 0 0 14px 2px; }
-  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px; }
-  .ticket { background: var(--surface); border-radius: 10px; border: 1px solid var(--line); overflow: hidden; position: relative; transition: opacity 0.5s ease, transform 0.5s ease; }
-  .ticket.punched { opacity: 0; transform: scale(0.92); }
-  .ticket-top { padding: 16px 16px 14px; }
-  .ticket-link { color: var(--text); font-size: 14px; word-break: break-all; text-decoration: none; display: block; line-height: 1.4; }
-  .ticket-link:hover { color: var(--stamp); }
-  .perforation { position: relative; border-top: 1px dashed var(--line); margin: 0 16px; }
-  .perforation::before, .perforation::after { content: ''; position: absolute; top: -7px; width: 14px; height: 14px; background: var(--ink); border-radius: 50%; }
-  .perforation::before { left: -23px; }
-  .perforation::after { right: -23px; }
-  .ticket-bottom { padding: 14px 16px 16px; display: flex; align-items: center; justify-content: space-between; }
-  .like-btn { background: var(--stamp); color: var(--ink); border: none; border-radius: 6px; padding: 8px 14px; font-weight: 700; font-size: 13px; cursor: pointer; }
-  .like-btn:hover { filter: brightness(1.08); }
-  .like-btn:disabled { background: var(--surface-raised); color: var(--muted); cursor: default; }
-  .count { font-family: monospace; font-size: 13px; color: var(--muted); }
-  .count b { color: var(--text); }
-  form.submit, .card {
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 18px;
-    padding: 20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 30px rgba(0,0,0,.35);
-    transition: .3s;
-}
-form.submit:hover,
-.card:hover{
-    transform: translateY(-4px);
-    box-shadow: 0 0 25px rgba(0,229,255,.25);
-}
-  form.submit input, .card input { width: 100%; background: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; color: var(--text); font-size: 14px; margin-bottom: 12px; }
-  form.submit input:focus, .card input:focus { outline: 2px solid var(--stamp); border-color: transparent; }
-  form.submit button,
-.card button,
-.btn{
-    background: linear-gradient(135deg,#00e5ff,#00ff95);
-    color:#111;
-    border:none;
-    border-radius:12px;
-    padding:13px 22px;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    transition:all .3s ease;
-    box-shadow:0 0 20px rgba(0,229,255,.35);
-}
+  .topbar {
+    background: linear-gradient(90deg, var(--pink), var(--violet));
+    text-align: center; font-size: 12px; padding: 6px; color: #0c0716; font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px; flex-wrap: wrap; gap: 12px;
+  }
+  .brand { font-weight: 900; font-size: 17px; letter-spacing: 0.3px; }
+  .nav-links { display: flex; gap: 26px; font-size: 14px; color: var(--muted); flex-wrap: wrap; }
+  .nav-links a:hover { color: var(--text); }
 
-form.submit button:hover,
-.card button:hover,
-.btn:hover{
-    transform:translateY(-3px) scale(1.03);
-    box-shadow:0 0 35px rgba(0,229,255,.7);
-    filter:brightness(1.08);
-}
+  .hero {
+    max-width: 1100px; margin: 20px auto 10px; padding: 20px 32px;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; align-items: center;
+  }
+  .hero h1 { font-size: 40px; font-weight: 900; margin: 0 0 8px; line-height: 1.05; }
+  .hero-sub { font-size: 16px; color: var(--muted); margin: 6px 0 4px; }
+  .hero-tag { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .rocket-emoji { font-size: 80px; text-align: center; filter: drop-shadow(0 0 30px rgba(255,46,154,0.5)); }
 
-form.submit button:active,
-.card button:active,
-.btn:active{
-    transform:scale(.97);
-}
-  form.submit button:disabled, .card button:disabled { background: var(--surface-raised); color: var(--muted); cursor: default; }
+  .pass-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 18px 22px; text-align: center; box-shadow: 0 0 40px rgba(139,62,232,0.25);
+  }
+  .pass-label { font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+  .pass-value { font-size: 40px; font-weight: 900; background: linear-gradient(90deg,var(--pink),var(--blue)); -webkit-background-clip:text; background-clip:text; color:transparent; margin: 4px 0; }
+  .pass-sub { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .progress-track { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg,var(--pink),var(--blue)); transition: width 0.4s ease; }
+
+  .stats-bar {
+    max-width: 1100px; margin: 10px auto; padding: 0 32px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 14px;
+  }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+  }
+  .stat-icon { font-size: 20px; }
+  .stat-label { font-size: 11px; color: var(--muted); }
+  .stat-value { font-size: 20px; font-weight: 800; }
+
+  section.panel {
+    max-width: 1100px; margin: 26px auto; padding: 0 32px;
+  }
+  .panel-title { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--pink-2); font-weight: 700; margin-bottom: 14px; }
+  .panel-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+
+  .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; border-bottom: 1px solid var(--line); gap: 14px; flex-wrap: wrap;
+  }
+  .row:last-child { border-bottom: none; }
+  .row-link { font-size: 13px; word-break: break-all; flex: 1; min-width: 180px; }
+  .row-link:hover { color: var(--pink-2); }
+  .row-right { display: flex; align-items: center; gap: 14px; }
+  .tag-liked { background: rgba(62,198,255,0.15); color: var(--blue); border: 1px solid var(--blue); border-radius: 20px; padding: 4px 12px; font-size: 12px; }
+  .tag-like { background: linear-gradient(90deg,var(--pink),var(--violet)); color: #fff; border: none; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .tag-locked { background: var(--card-2); color: var(--muted); border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: 12px; }
+  .mini-progress { width: 90px; height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .mini-progress-fill { height: 100%; background: linear-gradient(90deg,var(--pink),var(--blue)); }
+  .count-text { font-size: 12px; color: var(--muted); font-family: monospace; min-width: 44px; text-align: right; }
+  .empty-row { text-align: center; padding: 30px; color: var(--muted); font-size: 14px; }
+
+  form input {
+    width: 100%; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+    padding: 13px 16px; color: var(--text); font-size: 14px; margin-bottom: 12px;
+  }
+  form input:focus { outline: 2px solid var(--pink); border-color: transparent; }
+  .video-form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .video-form-row input { flex: 1; margin-bottom: 0; min-width: 200px; }
+  .hint-note { font-size: 12px; color: var(--pink-2); margin-top: 12px; }
   .hint { font-size: 12px; color: var(--muted); margin-top: 10px; }
-  .empty { text-align: center; padding: 50px 20px; color: var(--muted); font-size: 14px; }
-  .admin-tag { display: inline-block; font-size: 10px; background: var(--danger); color: var(--ink); padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--surface-raised); border: 1px solid var(--stamp); color: var(--text); padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 999; }
-  .toast.show { opacity: 1; }
-  .center-screen { max-width: 420px; margin: 60px auto; }
-  .toggle-link { color: var(--stamp); text-decoration: underline; cursor: pointer; font-size: 13px; }
+
+  .gate-box { text-align: center; padding: 30px 20px; }
+  .gate-box p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+
+  .center-card { max-width: 400px; margin: 0 auto; }
+  .toggle-link { color: var(--pink-2); text-decoration: underline; cursor: pointer; font-size: 13px; }
   .error-text { color: var(--danger); font-size: 13px; margin-top: -6px; margin-bottom: 12px; }
-  .trial-banner { background: var(--surface-raised); border: 1px solid var(--stamp-dim); border-radius: 8px; padding: 8px 14px; font-size: 12px; color: var(--muted); margin-bottom: 20px; font-family: monospace; }
+  .logout-link { color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
+
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(5,2,12,0.75); display: none;
+    align-items: center; justify-content: center; z-index: 500; padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+
   .req-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; gap: 10px; }
   .req-row:last-child { border-bottom: none; }
-  .logout-link { color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
-  header h1{
-    font-size:42px;
-    font-weight:900;
-    background:linear-gradient(90deg,#00e5ff,#00ff95);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
 
-.ticket,
-.card{
-    border-radius:18px;
-    box-shadow:0 8px 30px rgba(0,0,0,.35);
-    transition:.3s;
-}
-
-.ticket:hover,
-.card:hover{
-    transform:translateY(-4px);
-}
-
-button{
-    border-radius:12px;
-}.top-nav{
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    margin:20px 0;
-    padding:12px;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;
-    backdrop-filter:blur(10px);
-}
-
-.top-nav a{
-    color:#ffffff;
-    text-decoration:none;
-    font-size:14px;
-    font-weight:600;
-    transition:.3s;
-}
-
-.top-nav a:hover{
-    color:#00e5ff;
-    transform:translateY(-2px);
-}
- header{
-    text-align:center;
-}
-
-header h1{
-    font-size:52px;
-    margin:15px 0;
-}
-
-.tagline{
-    text-align:center;
-}@keyframes float {
-  0% {
-    transform: translateY(0px);
+  footer {
+    max-width: 1100px; margin: 40px auto 0; padding: 30px 32px;
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 20px; font-size: 13px; color: var(--muted);
   }
-  50% {
-    transform: translateY(-10px);
+  footer h4 { color: var(--text); font-size: 13px; margin-bottom: 10px; }
+  footer a { display: block; margin-bottom: 6px; color: var(--muted); }
+  footer a:hover { color: var(--pink-2); }
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto; padding: 16px 32px 30px; display: flex;
+    justify-content: space-between; font-size: 12px; color: var(--muted); flex-wrap: wrap; gap: 10px;
   }
-  100% {
-    transform: translateY(0px);
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--card-2); border: 1px solid var(--pink); color: var(--text);
+    padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease; z-index: 999;
   }
-}.particles{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:-1;
-  overflow:hidden;
-}
+  .toast.show { opacity: 1; }
 
-.particles span{
-  position:absolute;
-  display:block;
-  width:6px;
-  height:6px;
-  background:#00e5ff;
-  border-radius:50%;
-  opacity:.6;
-  animation:floatParticle 10s linear infinite;
-}
-
-.particles span:nth-child(1){left:10%;animation-delay:0s;}
-.particles span:nth-child(2){left:30%;animation-delay:2s;}
-.particles span:nth-child(3){left:50%;animation-delay:4s;}
-.particles span:nth-child(4){left:70%;animation-delay:6s;}
-.particles span:nth-child(5){left:90%;animation-delay:8s;}
-
-@keyframes floatParticle{
-  0%{
-    transform:translateY(100vh);
-    opacity:0;
+  @media (max-width: 750px) {
+    .hero { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; }
   }
-  20%{
-    opacity:.8;
-  }
-  100%{
-    transform:translateY(-100px);
-    opacity:0;
-  }
-}
-  .hero-buttons{
-    margin-top:20px;
-    text-align:center;
-}
-
-.hero-buttons .btn{
-    background:linear-gradient(135deg,#00e5ff,#00ff99);
-    color:#111;
-    border:none;
-    padding:14px 32px;
-    border-radius:14px;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 0 20px rgba(0,229,255,.5);
-    transition:.3s;
-}
-
-.hero-buttons .btn:hover{
-    transform:translateY(-3px) scale(1.05);
-    box-shadow:0 0 35px rgba(0,255,153,.7);
-  }.hero{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:30px;
-padding:40px 20px;
-flex-wrap:wrap;
-}
-
-.hero-left{
-flex:1;
-min-width:280px;
-}
-
-.hero-right{
-flex:1;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-
-.hero h1{
-font-size:56px;
-font-weight:900;
-line-height:1.1;
-background:linear-gradient(90deg,#ffffff,#ff4fd8,#8b5cf6);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-margin-bottom:15px;
-}
-
-.hero .tagline{
-font-size:22px;
-color:#ffffff;
-margin-bottom:8px;
-}
-
-.hero .subtitle{
-color:#bfc7ff;
-font-size:16px;
-margin-bottom:25px;
-}
-
-.hero-btn{
-background:linear-gradient(135deg,#ff4fd8,#7c3aed);
-color:white;
-border:none;
-padding:15px 35px;
-border-radius:15px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 0 30px rgba(255,79,216,.5);
-transition:.3s;
-}
-
-.hero-btn:hover{
-transform:translateY(-3px) scale(1.05);
-}
-
-.rocket{
-font-size:120px;
-animation:float 3s ease-in-out infinite;
-}
-
-.pass-card{
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.15);
-border-radius:22px;
-padding:25px;
-width:280px;
-box-shadow:0 0 40px rgba(255,79,216,.25);
-text-align:center;
-}
-
-.pass-title{
-font-size:14px;
-color:#ff9ff3;
-letter-spacing:2px;
-}
-
-.pass-number{
-font-size:60px;
-font-weight:bold;
-margin:15px 0;
-color:#fff;
-}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="particles">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  </div>
 
-  <div id="statusBanner" style="background:#262B35;border:1px solid #E8A33D;color:#F2EFE9;padding:10px 14px;border-radius:8px;margin-bottom:20px;font-size:13px;font-family:monospace;">
-    Connecting...
-  </div>
+<div class="topbar" id="trialTopbar" style="display:none;"></div>
 
-  <!-- AUTH SCREEN -->
-  <div id="authScreen" class="center-screen card" style="display:none;">
-    <h1 style="font-size:22px;">Exchange Board</h1>
-    <p class="tagline" id="authTitle">Log in to continue</p>
+<div id="statusBanner" style="display:none; background:#201538;border:1px solid #ff2e9a;color:#f3eefc;padding:10px 14px;margin:10px 32px;border-radius:8px;font-size:13px;font-family:monospace;">
+  Connecting...
+</div>
+
+<nav>
+  <div class="brand">🚀 JH DIGITAL SERVICE</div>
+  <div class="nav-links">
+    <a href="#top">Home</a>
+    <a href="#board">Exchange</a>
+    <a href="#addvideo">Premium</a>
+    <a href="#footer">Contact</a>
+  </div>
+  <button class="btn-outline" id="navAuthBtn">Login</button>
+</nav>
+
+<section class="hero" id="top">
+  <div>
+    <h1>JH DIGITAL<br><span class="grad-text">SERVICE</span></h1>
+    <p class="hero-sub">Grow Your Social Media Faster 🚀</p>
+    <p class="hero-tag">Exchange Likes • Earn Passes • Promote Videos</p>
+    <button class="btn-gradient" id="getStartedBtn">Get Started ↗</button>
+  </div>
+  <div>
+    <div class="rocket-emoji">🚀</div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="pass-card" style="grid-column: span 1;">
+    <div class="pass-label">Your Pass</div>
+    <div class="pass-value" id="pointsDisplay">0</div>
+    <div class="pass-sub" id="progressText">0 / 10 likes given</div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+  <div class="stat-card"><span class="stat-icon">👥</span><div><div class="stat-label">Total Users</div><div class="stat-value" id="statUsers">–</div></div></div>
+  <div class="stat-card"><span class="stat-icon">▶️</span><div><div class="stat-label">Videos Boosted</div><div class="stat-value" id="statVideos">–</div></div></div>
+  <div class="stat-card"><span class="stat-icon">❤️</span><div><div class="stat-label">Likes Delivered</div><div class="stat-value" id="statLikes">–</div></div></div>
+</div>
+
+<section class="panel" id="adminPanelSection" style="display:none;">
+  <div class="panel-title">Pending Subscription Requests</div>
+  <div class="panel-card"><div id="pendingList"></div></div>
+</section>
+
+<section class="panel" id="board">
+  <div class="panel-title">On The Board <span id="adminBadge"></span></div>
+  <div class="panel-card">
+    <div id="gateBoard" class="gate-box" style="display:none;"></div>
+    <div id="boardList" style="display:none;"></div>
+  </div>
+</section>
+
+<section class="panel" id="addvideo">
+  <div class="panel-title">Add Your Video</div>
+  <div class="panel-card">
+    <div id="gateForm" class="gate-box" style="display:none;"></div>
+    <form id="submitForm" class="video-form-row" style="display:none;">
+      <input type="url" id="videoLink" placeholder="Paste your video link (TikTok, YouTube, etc.)" required />
+      <button type="submit" class="btn-gradient" id="submitBtn">Submit ↗</button>
+    </form>
+    <p class="hint" id="submitHint"></p>
+    <p class="hint-note" id="formNote" style="display:none;">💡 Make sure your account is public for fast delivery.</p>
+    <p style="margin-top:14px;"><span class="logout-link" id="appLogout" style="display:none;">Log out</span></p>
+  </div>
+</section>
+
+<footer id="footer">
+  <div>
+    <div class="brand" style="margin-bottom:10px;">🚀 JH DIGITAL SERVICE</div>
+    <p>We help you grow your social media with real likes, real people, real results.</p>
+  </div>
+  <div>
+    <h4>Quick Links</h4>
+    <a href="#top">Home</a><a href="#board">Exchange</a><a href="#addvideo">Premium</a><a href="#footer">Contact</a>
+  </div>
+  <div>
+    <h4>Legal</h4>
+    <a href="#">Terms of Service</a><a href="#">Privacy Policy</a><a href="#">Refund Policy</a>
+  </div>
+  <div>
+    <h4>Support</h4>
+    <a href="#">FAQ</a><a href="#">Help Center</a><a href="#">Contact Us</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 JH Digital Service. All rights reserved.</span>
+</div>
+
+<!-- AUTH MODAL -->
+<div id="authOverlay" class="modal-overlay">
+  <div class="panel-card center-card">
+    <h1 style="font-size:20px; margin-top:0;">JH Digital Service</h1>
+    <p class="hint" id="authTitle">Log in to continue</p>
     <input type="email" id="authEmail" placeholder="Email" />
     <input type="password" id="authPassword" placeholder="Password" />
     <div class="error-text" id="authError" style="display:none;"></div>
-    <button class="btn" id="authSubmit" style="width:100%;">Log In</button>
+    <button class="btn-gradient" id="authSubmit" style="width:100%;">Log In</button>
     <p style="margin-top:14px; font-size:13px;">
       <span id="authToggleText">Don't have an account?</span>
       <span class="toggle-link" id="authToggleLink">Sign up</span>
     </p>
+    <p style="margin-top:10px;"><span class="logout-link" id="authClose">Close</span></p>
   </div>
+</div>
 
-  <!-- LOCKED / SUBSCRIBE SCREEN -->
-  <div id="lockScreen" class="center-screen card" style="display:none;">
-    <h1 style="font-size:22px;">Trial Ended</h1>
-    <p class="tagline">Your 7-day free trial has finished. Subscribe for 150 PKR/month to keep using the board.</p>
-    <div style="background:var(--ink); border:1px dashed var(--stamp-dim); border-radius:8px; padding:14px; margin:16px 0; font-size:13px;">
+<!-- SUBSCRIBE MODAL -->
+<div id="lockOverlay" class="modal-overlay">
+  <div class="panel-card center-card">
+    <h1 style="font-size:20px; margin-top:0;">Trial Ended</h1>
+    <p class="hint">Your 7-day free trial has finished. Subscribe for 150 PKR/month to keep exchanging.</p>
+    <div style="background:var(--bg-2); border:1px dashed var(--violet); border-radius:10px; padding:14px; margin:16px 0; font-size:13px;">
       <b>Send 150 PKR to:</b><br>
-      JazzCash: <span style="color:var(--stamp)">0304-0599655</span><br>
-      Account Name: <span style="color:var(--stamp)">FIDH HUSSAIN</span>
+      JazzCash: <span style="color:var(--pink-2)">0304-0599655</span><br>
+      Account Name: <span style="color:var(--pink-2)">FIDH HUSSAIN</span>
     </div>
     <input type="text" id="txnId" placeholder="Transaction ID / TXN number" />
-    <button class="btn" id="submitTxn" style="width:100%;">Submit for Approval</button>
+    <button class="btn-gradient" id="submitTxn" style="width:100%;">Submit for Approval</button>
     <p class="hint" id="txnStatus"></p>
     <p style="margin-top:14px;"><span class="logout-link" id="lockLogout">Log out</span></p>
   </div>
-
-  <!-- MAIN APP -->
-  <div id="appScreen" style="display:none;">
-
-    <div id="trialBanner" class="trial-banner" style="display:none;"></div>
-    <nav class="top-nav">
-  <a href="#">🏠 Home</a>
-  <a href="#">🎥 Exchange</a>
-  <a href="#">💎 Premium</a>
-  <a href="#">📞 Contact</a>
-    </nav>
-
-    <div id="adminPanel" class="card" style="display:none; margin-bottom:24px;">
-      <div class="section-label" style="margin-bottom:10px;">Pending Subscription Requests</div>
-      <div id="pendingList"></div>
-    </div>
-
-    <header>
-  <header class="hero">
-
-  <div class="hero-left">
-
-    <h1>
-      JH DIGITAL<br>
-      <span>SERVICE</span>
-    </h1>
-
-    <p class="tagline">
-      Grow Your Social Media Faster 🚀
-    </p>
-
-    <p class="subtitle">
-      Exchange Likes • Earn Passes • Promote Videos
-    </p>
-
-    <button class="hero-btn">
-      🚀 Get Started
-    </button>
-
-  </div>
-
-  <div class="hero-right">
-
-    <div class="rocket">
-      🚀
-    </div>
-
-    <div class="pass-card">
-
-      <div class="pass-title">
-        YOUR PASS
-      </div>
-
-      <div class="pass-number" id="pointsDisplay">
-        0
-      </div>
-
-      <div class="pass-progress">
-        <span id="progressText">0 / 10 likes given</span>
-
-        <div class="progress-track">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-    </header>
-
-    <div class="section-label">On the board <span id="adminBadge"></span></div>
-    <div class="board" id="board"></div>
-
-    <div class="section-label">Add your video</div>
-    <form class="submit" id="submitForm">
-      <input type="url" id="videoLink" placeholder="Paste your video link (TikTok, YouTube, etc.)" required />
-      <button type="submit" id="submitBtn">Spend 1 pass → List video</button>
-      <div class="hint" id="submitHint"></div>
-    </form>
-
-    <p style="margin-top:20px;"><span class="logout-link" id="appLogout">Log out</span></p>
-  </div>
-
 </div>
 
 <div class="toast" id="toast"></div>
@@ -509,7 +294,7 @@ color:#fff;
 <script>
   window.addEventListener('error', function(e) {
     var b = document.getElementById('statusBanner');
-    if (b) { b.style.display='block'; b.style.border = '1px solid #C1594F'; b.textContent = 'PAGE ERROR: ' + (e.message || 'unknown error'); }
+    if (b) { b.style.display='block'; b.style.border = '1px solid #ff5c7a'; b.textContent = 'PAGE ERROR: ' + (e.message || 'unknown error'); }
   });
 </script>
 <script type="module">
@@ -553,13 +338,21 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-function showScreen(name) {
-  el('authScreen').style.display = name === 'auth' ? 'block' : 'none';
-  el('lockScreen').style.display = name === 'lock' ? 'block' : 'none';
-  el('appScreen').style.display = name === 'app' ? 'block' : 'none';
-}
+// ---------- MODALS ----------
+function openAuth() { el('authOverlay').classList.add('show'); }
+function closeAuth() { el('authOverlay').classList.remove('show'); }
+function openLock() { el('lockOverlay').classList.add('show'); }
+function closeLock() { el('lockOverlay').classList.remove('show'); }
 
-// ---------- AUTH ----------
+el('authClose').addEventListener('click', closeAuth);
+el('navAuthBtn').addEventListener('click', () => {
+  if (auth.currentUser) { signOut(auth); } else { openAuth(); }
+});
+el('getStartedBtn').addEventListener('click', () => {
+  if (!auth.currentUser) openAuth();
+  else document.getElementById('addvideo').scrollIntoView({behavior:'smooth'});
+});
+
 let isSignupMode = false;
 el('authToggleLink').addEventListener('click', () => {
   isSignupMode = !isSignupMode;
@@ -584,6 +377,7 @@ el('authSubmit').addEventListener('click', async () => {
     } else {
       await signInWithEmailAndPassword(auth, email, password);
     }
+    closeAuth();
   } catch (e) {
     el('authError').style.display = 'block';
     el('authError').textContent = e.message;
@@ -593,7 +387,6 @@ el('authSubmit').addEventListener('click', async () => {
 el('lockLogout').addEventListener('click', () => signOut(auth));
 el('appLogout').addEventListener('click', () => signOut(auth));
 
-// ---------- SUBSCRIPTION SUBMIT ----------
 el('submitTxn').addEventListener('click', async () => {
   const txn = el('txnId').value.trim();
   if (!txn) return;
@@ -608,7 +401,7 @@ el('submitTxn').addEventListener('click', async () => {
   el('submitTxn').disabled = true;
 });
 
-// ---------- ADMIN: approve pending requests ----------
+// ---------- ADMIN ----------
 function renderPendingRequests(requests) {
   const list = el('pendingList');
   const entries = Object.entries(requests).filter(([id, r]) => r.status === 'pending');
@@ -622,66 +415,121 @@ function renderPendingRequests(requests) {
     row.className = 'req-row';
     row.innerHTML = `
       <span>${r.email}<br><span class="hint">TXN: ${r.txnId}</span></span>
-      <button class="btn" data-id="${id}" data-uid="${r.uid}">Approve</button>
+      <button class="btn-gradient" data-id="${id}" data-uid="${r.uid}">Approve</button>
     `;
     list.appendChild(row);
   });
 }
 
 if (isAdmin) {
-  el('adminPanel').style.display = 'block';
-  onValue(ref(db, 'subscriptionRequests'), (snap) => {
-    renderPendingRequests(snap.val() || {});
-  });
+  el('adminPanelSection').style.display = 'block';
+  onValue(ref(db, 'subscriptionRequests'), (snap) => renderPendingRequests(snap.val() || {}));
   el('pendingList').addEventListener('click', async (e) => {
     const btn = e.target.closest('button[data-id]');
     if (!btn) return;
-    const reqId = btn.dataset.id;
-    const uid = btn.dataset.uid;
-    await update(ref(db, 'accounts/' + uid), {
-      subscriptionActive: true,
-      subscriptionExpiry: Date.now() + SUB_DAYS * DAY_MS
+    await update(ref(db, 'accounts/' + btn.dataset.uid), {
+      subscriptionActive: true, subscriptionExpiry: Date.now() + SUB_DAYS * DAY_MS
     });
-    await update(ref(db, 'subscriptionRequests/' + reqId), { status: 'approved' });
+    await update(ref(db, 'subscriptionRequests/' + btn.dataset.id), { status: 'approved' });
     showToast('Approved!');
   });
 }
 
+// ---------- STATS (real, cumulative) ----------
+onValue(ref(db, 'accounts'), (snap) => {
+  el('statUsers').textContent = Object.keys(snap.val() || {}).length;
+});
+onValue(ref(db, 'stats/videosBoosted'), (snap) => {
+  el('statVideos').textContent = snap.val() || 0;
+});
+onValue(ref(db, 'stats/likesDelivered'), (snap) => {
+  el('statLikes').textContent = snap.val() || 0;
+});
+
 // ---------- ACCESS CONTROL ----------
+function setGates(mode) {
+  // mode: 'loggedOut' | 'locked' | 'unlocked'
+  const gateBoard = el('gateBoard');
+  const gateForm = el('gateForm');
+  const boardList = el('boardList');
+  const submitForm = el('submitForm');
+  const appLogout = el('appLogout');
+  const formNote = el('formNote');
+  const navBtn = el('navAuthBtn');
+
+  if (mode === 'loggedOut') {
+    navBtn.textContent = 'Login';
+    gateBoard.style.display = 'block';
+    gateBoard.innerHTML = '<p>Log in to view and join the exchange board.</p><button class="btn-gradient" id="gateLoginBtn1">Login / Sign Up</button>';
+    boardList.style.display = 'none';
+    gateForm.style.display = 'block';
+    gateForm.innerHTML = '<p>Log in to submit your video.</p><button class="btn-gradient" id="gateLoginBtn2">Login / Sign Up</button>';
+    submitForm.style.display = 'none';
+    appLogout.style.display = 'none';
+    formNote.style.display = 'none';
+    el('trialTopbar').style.display = 'none';
+    document.getElementById('gateLoginBtn1')?.addEventListener('click', openAuth);
+    document.getElementById('gateLoginBtn2')?.addEventListener('click', openAuth);
+  } else if (mode === 'locked') {
+    navBtn.textContent = 'Log out';
+    gateBoard.style.display = 'block';
+    gateBoard.innerHTML = '<p>Your free trial has ended. Subscribe to keep viewing the board.</p><button class="btn-gradient" id="gateSubBtn1">Subscribe</button>';
+    boardList.style.display = 'none';
+    gateForm.style.display = 'block';
+    gateForm.innerHTML = '<p>Subscribe to submit videos.</p><button class="btn-gradient" id="gateSubBtn2">Subscribe</button>';
+    submitForm.style.display = 'none';
+    appLogout.style.display = 'inline';
+    formNote.style.display = 'none';
+    document.getElementById('gateSubBtn1')?.addEventListener('click', openLock);
+    document.getElementById('gateSubBtn2')?.addEventListener('click', openLock);
+  } else {
+    navBtn.textContent = 'Log out';
+    gateBoard.style.display = 'none';
+    boardList.style.display = 'block';
+    gateForm.style.display = 'none';
+    submitForm.style.display = 'flex';
+    appLogout.style.display = 'inline';
+    formNote.style.display = 'block';
+    closeLock();
+  }
+}
+
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    showScreen('auth');
+    setGates('loggedOut');
     return;
   }
   onValue(ref(db, 'accounts/' + user.uid), (snap) => {
     const acc = snap.val();
-    if (!acc) return; // account doc not yet created (signup race)
+    if (!acc) return;
     const trialEnd = acc.createdAt + TRIAL_DAYS * DAY_MS;
     const now = Date.now();
     const inTrial = now < trialEnd;
     const subActive = acc.subscriptionActive && now < acc.subscriptionExpiry;
 
     if (isAdmin || inTrial || subActive) {
-      showScreen('app');
+      setGates('unlocked');
       if (inTrial && !subActive) {
         const daysLeft = Math.ceil((trialEnd - now) / DAY_MS);
-        el('trialBanner').style.display = 'block';
-        el('trialBanner').textContent = `Free trial: ${daysLeft} day(s) left`;
+        el('trialTopbar').style.display = 'block';
+        el('trialTopbar').textContent = `• Free trial: ${daysLeft} day(s) left`;
       } else {
-        el('trialBanner').style.display = 'none';
+        el('trialTopbar').style.display = 'none';
       }
       initBoard(user.uid);
     } else {
-      showScreen('lock');
+      setGates('locked');
+      openLock();
     }
   });
 });
 
-// ---------- EXCHANGE BOARD (existing logic, keyed by logged-in uid) ----------
+// ---------- EXCHANGE BOARD ----------
 let boardInitialized = false;
 let currentVideos = {};
 let myProgress = { likesGiven: 0, pointsSpent: 0 };
 let myId = null;
+const videoUnlockState = {};
 
 function initBoard(uid) {
   myId = uid;
@@ -694,7 +542,7 @@ function initBoard(uid) {
     statusBanner.style.display = 'none';
   }, (error) => {
     statusBanner.style.display = 'block';
-    statusBanner.style.border = '1px solid #C1594F';
+    statusBanner.style.border = '1px solid #ff5c7a';
     statusBanner.textContent = 'ERROR: ' + error.message;
   });
 
@@ -704,20 +552,28 @@ function initBoard(uid) {
     renderPass();
   });
 
-  document.getElementById('board').addEventListener('click', (e) => {
-    const btn = e.target.closest('.like-btn');
+  el('boardList').addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-open-id]');
+    if (link) {
+      const id = link.dataset.openId;
+      if (!videoUnlockState[id]) {
+        videoUnlockState[id] = 'waiting';
+        setTimeout(() => { videoUnlockState[id] = 'unlocked'; renderBoard(); }, 8000);
+      }
+      return;
+    }
+    const btn = e.target.closest('.tag-like');
     if (btn && !btn.disabled) handleLike(btn.dataset.id);
   });
 
-  document.getElementById('submitForm').addEventListener('submit', async (e) => {
+  el('submitForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const input = document.getElementById('videoLink');
+    const input = el('videoLink');
     const link = input.value.trim();
     if (!link) return;
 
     if (!isAdmin) {
-      const userRef = ref(db, 'users/' + myId);
-      const snap = await get(userRef);
+      const snap = await get(ref(db, 'users/' + myId));
       const data = snap.val() || { likesGiven: 0, pointsSpent: 0 };
       const pts = Math.floor(data.likesGiven / LIKES_PER_PASS) - (data.pointsSpent || 0);
       if (pts <= 0) {
@@ -728,6 +584,7 @@ function initBoard(uid) {
     }
 
     await push(ref(db, 'videos'), { link, likes: 0, likedBy: {}, addedBy: myId });
+    await runTransaction(ref(db, 'stats/videosBoosted'), (n) => (n || 0) + 1);
     input.value = '';
     showToast('Video added to the board.');
   });
@@ -744,69 +601,53 @@ function renderPass() {
   const inCycle = myProgress.likesGiven % LIKES_PER_PASS;
   el('progressText').textContent = `${inCycle} / ${LIKES_PER_PASS} likes given`;
   el('progressFill').style.width = `${(inCycle / LIKES_PER_PASS) * 100}%`;
-  el('adminBadge').innerHTML = isAdmin ? '<span class="admin-tag">ADMIN MODE</span>' : '';
+  el('adminBadge').innerHTML = isAdmin ? '<span style="background:#ff5c7a;color:#0c0716;font-size:10px;padding:2px 8px;border-radius:4px;">ADMIN</span>' : '';
 
   const submitBtn = el('submitBtn');
   const hint = el('submitHint');
-  if (pts > 0 || isAdmin) {
-    submitBtn.disabled = false;
-    hint.textContent = isAdmin ? 'Admin mode: listing is free.' : `You have ${pts} pass(es) available.`;
-  } else {
-    submitBtn.disabled = true;
-    hint.textContent = `Like ${LIKES_PER_PASS - inCycle} more video(s) to earn a pass.`;
+  if (submitBtn) {
+    if (pts > 0 || isAdmin) {
+      submitBtn.disabled = false;
+      hint.textContent = isAdmin ? 'Admin mode: listing is free.' : `You have ${pts} pass(es) available.`;
+    } else {
+      submitBtn.disabled = true;
+      hint.textContent = `Like ${LIKES_PER_PASS - inCycle} more video(s) to earn a pass.`;
+    }
   }
 }
 
 function renderBoard() {
-  const board = el('board');
+  const board = el('boardList');
   const entries = Object.entries(currentVideos);
   board.innerHTML = '';
   if (entries.length === 0) {
-    board.innerHTML = '<div class="empty">Board is empty. Be the first to add a video.</div>';
+    board.innerHTML = '<div class="empty-row">Board is empty. Be the first to add a video.</div>';
     return;
   }
   entries.forEach(([id, v]) => {
     const likedBy = v.likedBy || {};
     const alreadyLiked = !!likedBy[myId];
     const unlocked = videoUnlockState[id] === 'unlocked';
-    const card = document.createElement('div');
-    card.className = 'ticket';
-    let btnHtml;
-    if (alreadyLiked) {
-      btnHtml = `<button class="like-btn" disabled>Liked</button>`;
-    } else if (unlocked) {
-      btnHtml = `<button class="like-btn" data-id="${id}">Like</button>`;
-    } else {
-      btnHtml = `<button class="like-btn" disabled data-open-hint="${id}">Open video first</button>`;
-    }
-    card.innerHTML = `
-      <div class="ticket-top">
-        <a class="ticket-link" href="${v.link}" target="_blank" rel="noopener noreferrer" data-open-id="${id}">${v.link}</a>
-      </div>
-      <div class="perforation"></div>
-      <div class="ticket-bottom">
-        ${btnHtml}
-        <span class="count"><b>${v.likes || 0}</b> / ${LIKES_TO_GRADUATE}</span>
+    const likes = v.likes || 0;
+    const pct = Math.min(100, (likes / LIKES_TO_GRADUATE) * 100);
+    let tagHtml;
+    if (alreadyLiked) tagHtml = `<span class="tag-liked">Liked</span>`;
+    else if (unlocked) tagHtml = `<button class="tag-like" data-id="${id}">Like</button>`;
+    else tagHtml = `<span class="tag-locked">Open first</span>`;
+
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `
+      <a class="row-link" href="${v.link}" target="_blank" rel="noopener noreferrer" data-open-id="${id}">${v.link}</a>
+      <div class="row-right">
+        ${tagHtml}
+        <div class="mini-progress"><div class="mini-progress-fill" style="width:${pct}%"></div></div>
+        <span class="count-text">${likes}/${LIKES_TO_GRADUATE}</span>
       </div>
     `;
-    board.appendChild(card);
+    board.appendChild(row);
   });
 }
-
-const videoUnlockState = {};
-document.getElementById('board').addEventListener('click', (e) => {
-  const link = e.target.closest('a[data-open-id]');
-  if (link) {
-    const id = link.dataset.openId;
-    if (!videoUnlockState[id]) {
-      videoUnlockState[id] = 'waiting';
-      setTimeout(() => {
-        videoUnlockState[id] = 'unlocked';
-        renderBoard();
-      }, 8000);
-    }
-  }
-});
 
 async function handleLike(videoId) {
   const videoRef = ref(db, 'videos/' + videoId);
@@ -820,6 +661,7 @@ async function handleLike(videoId) {
   });
   if (!result.committed) return;
   await runTransaction(ref(db, 'users/' + myId + '/likesGiven'), (n) => (n || 0) + 1);
+  await runTransaction(ref(db, 'stats/likesDelivered'), (n) => (n || 0) + 1);
   const updatedVideo = result.snapshot.val();
   if (updatedVideo && updatedVideo.likes >= LIKES_TO_GRADUATE) {
     await remove(videoRef);
