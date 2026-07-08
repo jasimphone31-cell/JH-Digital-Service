@@ -93,7 +93,34 @@ form.submit:hover,
 }
   form.submit input, .card input { width: 100%; background: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; color: var(--text); font-size: 14px; margin-bottom: 12px; }
   form.submit input:focus, .card input:focus { outline: 2px solid var(--stamp); border-color: transparent; }
-  form.submit button, .card button, .btn { background: var(--stamp); color: var(--ink); border: none; border-radius: 6px; padding: 12px 20px; font-weight: 700; font-size: 14px; cursor: pointer; }
+  form.submit button,
+.card button,
+.btn{
+    background: linear-gradient(135deg,#00e5ff,#00ff95);
+    color:#111;
+    border:none;
+    border-radius:12px;
+    padding:13px 22px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    transition:all .3s ease;
+    box-shadow:0 0 20px rgba(0,229,255,.35);
+}
+
+form.submit button:hover,
+.card button:hover,
+.btn:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 35px rgba(0,229,255,.7);
+    filter:brightness(1.08);
+}
+
+form.submit button:active,
+.card button:active,
+.btn:active{
+    transform:scale(.97);
+}
   form.submit button:disabled, .card button:disabled { background: var(--surface-raised); color: var(--muted); cursor: default; }
   .hint { font-size: 12px; color: var(--muted); margin-top: 10px; }
   .empty { text-align: center; padding: 50px 20px; color: var(--muted); font-size: 14px; }
