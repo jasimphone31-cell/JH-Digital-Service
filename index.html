@@ -285,7 +285,94 @@ header h1{
 .hero-buttons .btn:hover{
     transform:translateY(-3px) scale(1.05);
     box-shadow:0 0 35px rgba(0,255,153,.7);
-  }
+  }.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:30px;
+padding:40px 20px;
+flex-wrap:wrap;
+}
+
+.hero-left{
+flex:1;
+min-width:280px;
+}
+
+.hero-right{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.hero h1{
+font-size:56px;
+font-weight:900;
+line-height:1.1;
+background:linear-gradient(90deg,#ffffff,#ff4fd8,#8b5cf6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:15px;
+}
+
+.hero .tagline{
+font-size:22px;
+color:#ffffff;
+margin-bottom:8px;
+}
+
+.hero .subtitle{
+color:#bfc7ff;
+font-size:16px;
+margin-bottom:25px;
+}
+
+.hero-btn{
+background:linear-gradient(135deg,#ff4fd8,#7c3aed);
+color:white;
+border:none;
+padding:15px 35px;
+border-radius:15px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 30px rgba(255,79,216,.5);
+transition:.3s;
+}
+
+.hero-btn:hover{
+transform:translateY(-3px) scale(1.05);
+}
+
+.rocket{
+font-size:120px;
+animation:float 3s ease-in-out infinite;
+}
+
+.pass-card{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.15);
+border-radius:22px;
+padding:25px;
+width:280px;
+box-shadow:0 0 40px rgba(255,79,216,.25);
+text-align:center;
+}
+
+.pass-title{
+font-size:14px;
+color:#ff9ff3;
+letter-spacing:2px;
+}
+
+.pass-number{
+font-size:60px;
+font-weight:bold;
+margin:15px 0;
+color:#fff;
+}
 </style>
 </head>
 <body>
@@ -348,31 +435,58 @@ header h1{
     </div>
 
     <header>
-  <div style="font-size:80px;text-align:center;animation:float 3s ease-in-out infinite;">🚀</div>
+  <header class="hero">
 
-<h1>
-  JH DIGITAL<br>
-  <span style="color:#ff4fd8;">SERVICE</span>
-</h1>
+  <div class="hero-left">
 
-<div class="tagline">
-  ✨ Grow Your Social Media Faster ✨<br>
-  Exchange Likes • Earn Passes • Promote Videos
-</div>
+    <h1>
+      JH DIGITAL<br>
+      <span>SERVICE</span>
+    </h1>
 
-<div class="hero-buttons">
-  <button class="btn">🚀 Start Earning</button>
-</div>
+    <p class="tagline">
+      Grow Your Social Media Faster 🚀
+    </p>
 
-<div class="pass">
-  <div class="pass-label">YOUR PASS</div>
-  <div class="pass-points" id="pointsDisplay">0</div>
-  <div class="pass-sub" id="progressText">0 / 10 Likes Given</div>
-  <div class="progress-track">
-    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    <p class="subtitle">
+      Exchange Likes • Earn Passes • Promote Videos
+    </p>
+
+    <button class="hero-btn">
+      🚀 Get Started
+    </button>
+
   </div>
-</div>
-  
+
+  <div class="hero-right">
+
+    <div class="rocket">
+      🚀
+    </div>
+
+    <div class="pass-card">
+
+      <div class="pass-title">
+        YOUR PASS
+      </div>
+
+      <div class="pass-number" id="pointsDisplay">
+        0
+      </div>
+
+      <div class="pass-progress">
+        <span id="progressText">0 / 10 likes given</span>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
     </header>
 
     <div class="section-label">On the board <span id="adminBadge"></span></div>
