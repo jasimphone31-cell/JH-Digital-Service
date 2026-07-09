@@ -185,6 +185,32 @@
   .req-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; gap: 10px; }
   .req-row:last-child { border-bottom: none; }
 
+  .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 14px; }
+  .badge-item {
+    text-align: center; padding: 16px 10px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--card-2); transition: transform 0.2s ease;
+  }
+  .badge-item.unlocked { border-color: var(--pink); box-shadow: 0 0 18px rgba(255,46,154,0.35); }
+  .badge-item.locked { opacity: 0.35; filter: grayscale(1); }
+  .badge-icon { font-size: 30px; margin-bottom: 6px; }
+  .badge-name { font-size: 11px; font-weight: 700; }
+
+  .leader-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .leader-row:last-child { border-bottom: none; }
+  .leader-rank { font-weight: 900; width: 26px; text-align: center; color: var(--pink-2); }
+  .leader-email { flex: 1; }
+  .leader-count { font-family: monospace; color: var(--muted); }
+
+  body.light-mode {
+    --bg: #f5f2fb; --bg-2: #ffffff; --card: #ffffff; --card-2: #f0ebfa;
+    --line: #ddd3f0; --text: #241338; --muted: #6c5f8a;
+    background: radial-gradient(circle at 15% -5%, #e9d9fb 0%, transparent 45%),
+                radial-gradient(circle at 85% 10%, #d9e6fb 0%, transparent 40%),
+                #f5f2fb;
+  }
+  body.light-mode .glass-card { background: rgba(255,255,255,0.6); }
+  body.light-mode .stat-card, body.light-mode .panel-card, body.light-mode .badge-item { box-shadow: 0 2px 12px rgba(139,62,232,0.08); }
+
   footer {
     max-width: 1100px; margin: 40px auto 0; padding: 34px 32px;
     border-top: 1px solid var(--line);
@@ -240,7 +266,10 @@
     <a href="#premium">Premium</a>
     <a href="#footer">Contact</a>
   </div>
-  <button class="btn-outline" id="navAuthBtn">Login</button>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <button class="btn-outline" id="themeToggleBtn" title="Toggle theme">🌙</button>
+    <button class="btn-outline" id="navAuthBtn">Login</button>
+  </div>
 </nav>
 
 <section class="hero" id="top">
@@ -275,6 +304,26 @@
   <div class="panel-card"><div id="recentLikesList"></div></div>
   <div class="panel-title" style="margin-top:24px;">All Users</div>
   <div class="panel-card"><div id="allUsersList"></div></div>
+</section>
+
+<section class="panel" id="achievementsSection" style="display:none;">
+  <div class="panel-title">🎖️ My Achievements</div>
+  <div class="panel-card">
+    <div class="badge-grid" id="badgeGrid"></div>
+  </div>
+</section>
+
+<section class="panel" id="dailyRewardSection" style="display:none;">
+  <div class="panel-title">🎁 Daily Reward</div>
+  <div class="panel-card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
+    <p class="hint" id="dailyRewardStatus" style="margin:0;">Checking...</p>
+    <button class="btn-gradient btn-hover-glow" id="dailyRewardBtn" disabled>Claim +2 Likes</button>
+  </div>
+</section>
+
+<section class="panel" id="leaderboardSection" style="display:none;">
+  <div class="panel-title">🏆 Leaderboard — Top Likers</div>
+  <div class="panel-card"><div id="leaderboardList"></div></div>
 </section>
 
 <section class="panel" id="board">
@@ -368,7 +417,7 @@ box-shadow:0 0 25px rgba(255,46,154,.5);">
     <input type="text" id="txnId" placeholder="Transaction ID / TXN number" />
     <button class="btn-gradient" id="submitTxn" style="width:100%;">Submit for Approval</button>
     <button
-  id="submitTxn"
+  id="verifyWhatsappBtn"
   class="btn-gradient"
   onclick="verifyPayment()"
   style="width:100%;">
@@ -424,8 +473,8 @@ Thank you.`;
   document.getElementById("txnStatus").innerHTML =
   "⏳ Waiting for verification... Please wait. We will activate your subscription after checking your payment.";
 
-  document.getElementById("submitTxn").disabled = true;
-  document.getElementById("submitTxn").innerText = "Waiting for Verification...";
+  document.getElementById("verifyWhatsappBtn").disabled = true;
+  document.getElementById("verifyWhatsappBtn").innerText = "Waiting for Verification...";
 
   window.open(
     "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg),
@@ -493,6 +542,19 @@ function openAuth() { el('authOverlay').classList.add('show'); }
 function closeAuth() { el('authOverlay').classList.remove('show'); }
 function openLock() { el('lockOverlay').classList.add('show'); }
 function closeLock() { el('lockOverlay').classList.remove('show'); }
+
+const themeBtn = el('themeToggleBtn');
+function applyTheme(mode) {
+  document.body.classList.toggle('light-mode', mode === 'light');
+  themeBtn.textContent = mode === 'light' ? '☀️' : '🌙';
+}
+const savedTheme = localStorage.getItem('jh-theme') || 'dark';
+applyTheme(savedTheme);
+themeBtn.addEventListener('click', () => {
+  const next = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+  applyTheme(next);
+  localStorage.setItem('jh-theme', next);
+});
 
 el('authClose').addEventListener('click', closeAuth);
 el('navAuthBtn').addEventListener('click', () => {
@@ -679,6 +741,9 @@ function setGates(mode) {
   const appLogout = el('appLogout');
   const formNote = el('formNote');
   const navBtn = el('navAuthBtn');
+  const achievements = el('achievementsSection');
+  const dailyReward = el('dailyRewardSection');
+  const leaderboard = el('leaderboardSection');
 
   if (mode === 'loggedOut') {
     navBtn.textContent = 'Login';
@@ -690,6 +755,9 @@ function setGates(mode) {
     submitForm.style.display = 'none';
     appLogout.style.display = 'none';
     formNote.style.display = 'none';
+    achievements.style.display = 'none';
+    dailyReward.style.display = 'none';
+    leaderboard.style.display = 'none';
     el('trialTopbar').style.display = 'none';
     document.getElementById('gateLoginBtn1')?.addEventListener('click', openAuth);
     document.getElementById('gateLoginBtn2')?.addEventListener('click', openAuth);
@@ -703,6 +771,9 @@ function setGates(mode) {
     submitForm.style.display = 'none';
     appLogout.style.display = 'inline';
     formNote.style.display = 'none';
+    achievements.style.display = 'none';
+    dailyReward.style.display = 'none';
+    leaderboard.style.display = 'block';
     document.getElementById('gateSubBtn1')?.addEventListener('click', openLock);
     document.getElementById('gateSubBtn2')?.addEventListener('click', openLock);
   } else {
@@ -713,6 +784,9 @@ function setGates(mode) {
     submitForm.style.display = 'flex';
     appLogout.style.display = 'inline';
     formNote.style.display = 'block';
+    achievements.style.display = 'block';
+    dailyReward.style.display = 'block';
+    leaderboard.style.display = 'block';
     closeLock();
   }
 }
@@ -776,9 +850,47 @@ function initBoard(uid) {
 
   onValue(ref(db, 'users/' + myId), (snapshot) => {
     const data = snapshot.val() || {};
-    myProgress = { likesGiven: data.likesGiven || 0, pointsSpent: data.pointsSpent || 0 };
+    myProgress = { likesGiven: data.likesGiven || 0, pointsSpent: data.pointsSpent || 0, lastDailyClaim: data.lastDailyClaim || 0 };
     renderPass();
   });
+
+  let leaderboardUsers = {};
+  let leaderboardAccounts = {};
+  function maskEmail(email) {
+    if (!email) return 'Anonymous';
+    const parts = email.split('@');
+    if (parts.length < 2) return email;
+    return parts[0].slice(0, 2) + '***@' + parts[1];
+  }
+  function renderLeaderboard() {
+    const list = el('leaderboardList');
+    const entries = Object.entries(leaderboardUsers)
+      .map(([uid, u]) => ({ uid, likesGiven: u.likesGiven || 0 }))
+      .filter(e => e.likesGiven > 0)
+      .sort((a, b) => b.likesGiven - a.likesGiven)
+      .slice(0, 10);
+    if (entries.length === 0) {
+      list.innerHTML = '<div class="hint">No activity yet. Be the first to like a video!</div>';
+      return;
+    }
+    list.innerHTML = '';
+    entries.forEach((e, i) => {
+      const email = (leaderboardAccounts[e.uid] && leaderboardAccounts[e.uid].email) || null;
+      const row = document.createElement('div');
+      row.className = 'leader-row';
+      row.innerHTML = `
+        <span class="leader-rank">#${i + 1}</span>
+        <span class="leader-email">${maskEmail(email)}</span>
+        <span class="leader-count">${e.likesGiven} likes</span>
+      `;
+      list.appendChild(row);
+    });
+  }
+  onValue(ref(db, 'users'), (snap) => { leaderboardUsers = snap.val() || {}; renderLeaderboard(); });
+  onValue(ref(db, 'accounts'), (snap) => { leaderboardAccounts = snap.val() || {}; renderLeaderboard(); });
+
+  el('dailyRewardBtn').addEventListener('click', claimDailyReward);
+  setInterval(renderDailyReward, 60000);
 
   el('boardList').addEventListener('click', (e) => {
     const link = e.target.closest('a[data-open-id]');
@@ -823,6 +935,59 @@ function availablePoints() {
   return Math.max(0, earned - myProgress.pointsSpent);
 }
 
+const BADGES = [
+  { id: 'first_like', icon: '❤️', name: 'First Like', check: p => p.likesGiven >= 1 },
+  { id: 'ten_likes', icon: '🔥', name: '10 Likes', check: p => p.likesGiven >= 10 },
+  { id: 'fifty_likes', icon: '⭐', name: '50 Likes', check: p => p.likesGiven >= 50 },
+  { id: 'hundred_likes', icon: '💎', name: '100 Likes', check: p => p.likesGiven >= 100 },
+  { id: 'first_video', icon: '🎬', name: 'First Video', check: p => p.pointsSpent >= 1 },
+  { id: 'five_videos', icon: '🚀', name: '5 Videos', check: p => p.pointsSpent >= 5 },
+];
+
+function renderBadges() {
+  const grid = el('badgeGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  BADGES.forEach(b => {
+    const unlocked = b.check(myProgress);
+    const div = document.createElement('div');
+    div.className = 'badge-item ' + (unlocked ? 'unlocked' : 'locked');
+    div.innerHTML = `<div class="badge-icon">${b.icon}</div><div class="badge-name">${b.name}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+async function claimDailyReward() {
+  const snap = await get(ref(db, 'users/' + myId));
+  const data = snap.val() || {};
+  const last = data.lastDailyClaim || 0;
+  if (Date.now() - last < DAY_MS) {
+    showToast('Already claimed today — come back later.');
+    return;
+  }
+  await runTransaction(ref(db, 'users/' + myId + '/likesGiven'), (n) => (n || 0) + 2);
+  await update(ref(db, 'users/' + myId), { lastDailyClaim: Date.now() });
+  showToast('Claimed! +2 likes toward your pass 🎁');
+}
+
+function renderDailyReward() {
+  const btn = el('dailyRewardBtn');
+  const status = el('dailyRewardStatus');
+  if (!btn) return;
+  const last = myProgress.lastDailyClaim || 0;
+  const elapsed = Date.now() - last;
+  if (elapsed >= DAY_MS) {
+    btn.disabled = false;
+    status.textContent = 'Come back daily for a free boost toward your pass!';
+  } else {
+    btn.disabled = true;
+    const remaining = DAY_MS - elapsed;
+    const hrs = Math.floor(remaining / 3600000);
+    const mins = Math.floor((remaining % 3600000) / 60000);
+    status.textContent = `Claimed! Next reward in ${hrs}h ${mins}m`;
+  }
+}
+
 function renderPass() {
   const pts = availablePoints();
   el('pointsDisplay').textContent = pts;
@@ -830,6 +995,9 @@ function renderPass() {
   el('progressText').textContent = `${inCycle} / ${LIKES_PER_PASS} likes given`;
   el('progressFill').style.width = `${(inCycle / LIKES_PER_PASS) * 100}%`;
   el('adminBadge').innerHTML = isAdmin ? '<span style="background:#ff5c7a;color:#0c0716;font-size:10px;padding:2px 8px;border-radius:4px;">ADMIN</span>' : '';
+
+  renderBadges();
+  renderDailyReward();
 
   const submitBtn = el('submitBtn');
   const hint = el('submitHint');
