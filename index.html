@@ -328,14 +328,6 @@
   </div>
 </section>
 
-<section class="panel" id="dailyRewardSection" style="display:none;">
-  <div class="panel-title">🎁 Daily Reward</div>
-  <div class="panel-card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
-    <p class="hint" id="dailyRewardStatus" style="margin:0;">Checking...</p>
-    <button class="btn-gradient btn-hover-glow" id="dailyRewardBtn" disabled>Claim +2 Likes</button>
-  </div>
-</section>
-
 <section class="panel" id="leaderboardSection" style="display:none;">
   <div class="panel-title">🏆 Leaderboard — Top Likers</div>
   <div class="panel-card"><div id="leaderboardList"></div></div>
@@ -402,16 +394,13 @@
 <div id="authOverlay" class="modal-overlay">
   <div class="panel-card center-card">
     <h1 style="font-size:20px; margin-top:0;">JH Digital Service</h1>
-    <p class="hint" id="authTitle">Log in to continue</p>
-    <input type="email" id="authEmail" placeholder="Email" />
-    <input type="password" id="authPassword" placeholder="Password" />
+    <p class="hint">Sign in to start your 3-day free trial</p>
     <div class="error-text" id="authError" style="display:none;"></div>
-    <button class="btn-gradient" id="authSubmit" style="width:100%;">Log In</button>
-    <p style="margin-top:14px; font-size:13px;">
-      <span id="authToggleText">Don't have an account?</span>
-      <span class="toggle-link" id="authToggleLink">Sign up</span>
-    </p>
-    <p style="margin-top:10px;"><span class="logout-link" id="authClose">Close</span></p>
+    <button class="btn-gradient btn-hover-glow" id="googleSignInBtn" style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px;">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-4.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3c-7.5 0-14 4.2-17.7 10.7z"/><path fill="#4CAF50" d="M24 45c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35.9 26.8 37 24 37c-5.3 0-9.7-3.4-11.3-8.1l-6.6 5.1C9.9 40.5 16.4 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1 2.8-2.9 5.1-5.4 6.7l6.3 5.3C39.9 37.4 45 31.4 45 24c0-1.4-.1-2.7-.4-3.5z"/></svg>
+      Continue with Google
+    </button>
+    <p style="margin-top:14px;"><span class="logout-link" id="authClose">Close</span></p>
   </div>
 </div>
 
@@ -506,7 +495,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  getAuth, GoogleAuthProvider, signInWithPopup,
   onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
@@ -559,11 +548,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 const db = getDatabase(app);
 
 const LIKES_PER_PASS = 10;
 const LIKES_TO_GRADUATE = 10;
-const TRIAL_DAYS = 7;
+const TRIAL_DAYS = 3;
 const SUB_DAYS = 30;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const ADMIN_EMAIL = "jasimphone31@gmail.com";
@@ -666,32 +656,19 @@ el('submitFeedbackBtn')?.addEventListener('click', async () => {
   el('feedbackMsg').value = '';
 });
 
-let isSignupMode = false;
-el('authToggleLink').addEventListener('click', () => {
-  isSignupMode = !isSignupMode;
-  el('authTitle').textContent = isSignupMode ? 'Create an account (7-day free trial)' : 'Log in to continue';
-  el('authSubmit').textContent = isSignupMode ? 'Sign Up' : 'Log In';
-  el('authToggleText').textContent = isSignupMode ? 'Already have an account?' : "Don't have an account?";
-  el('authToggleLink').textContent = isSignupMode ? 'Log in' : 'Sign up';
+el('googleSignInBtn').addEventListener('click', async () => {
   el('authError').style.display = 'none';
-});
-
-el('authSubmit').addEventListener('click', async () => {
-  const email = el('authEmail').value.trim();
-  const password = el('authPassword').value;
-  el('authError').style.display = 'none';
-  if (!email || !password) return;
   try {
-    if (isSignupMode) {
-      const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const cred = await signInWithPopup(auth, googleProvider);
+    const existing = await get(ref(db, 'accounts/' + cred.user.uid));
+    if (!existing.exists()) {
       await set(ref(db, 'accounts/' + cred.user.uid), {
-        email, createdAt: Date.now(), subscriptionActive: false, subscriptionExpiry: 0
+        email: cred.user.email, createdAt: Date.now(), subscriptionActive: false, subscriptionExpiry: 0
       });
-      await logActivity(cred.user.uid, 'Joined JH Digital Service — 7-day trial started');
+      await logActivity(cred.user.uid, 'Joined JH Digital Service — 3-day trial started');
       closeAuth();
       el('welcomeOverlay').classList.add('show');
     } else {
-      await signInWithEmailAndPassword(auth, email, password);
       closeAuth();
     }
   } catch (e) {
@@ -916,7 +893,6 @@ function setGates(mode) {
   const formNote = el('formNote');
   const navBtn = el('navAuthBtn');
   const achievements = el('achievementsSection');
-  const dailyReward = el('dailyRewardSection');
   const leaderboard = el('leaderboardSection');
   const myActivityLink = el('myActivityLink');
   const feedbackSection = el('feedbackSection');
@@ -934,7 +910,6 @@ function setGates(mode) {
     appLogout.style.display = 'none';
     formNote.style.display = 'none';
     achievements.style.display = 'none';
-    dailyReward.style.display = 'none';
     leaderboard.style.display = 'none';
     myActivityLink.style.display = 'none';
     feedbackSection.style.display = 'none';
@@ -953,7 +928,6 @@ function setGates(mode) {
     appLogout.style.display = 'inline';
     formNote.style.display = 'none';
     achievements.style.display = 'none';
-    dailyReward.style.display = 'none';
     leaderboard.style.display = 'block';
     myActivityLink.style.display = 'inline';
     feedbackSection.style.display = 'none';
@@ -969,7 +943,6 @@ function setGates(mode) {
     appLogout.style.display = 'inline';
     formNote.style.display = 'block';
     achievements.style.display = 'block';
-    dailyReward.style.display = 'block';
     leaderboard.style.display = 'block';
     myActivityLink.style.display = 'inline';
     feedbackSection.style.display = 'block';
@@ -1077,9 +1050,6 @@ function initBoard(uid) {
   onValue(ref(db, 'users'), (snap) => { leaderboardUsers = snap.val() || {}; renderLeaderboard(); });
   onValue(ref(db, 'accounts'), (snap) => { leaderboardAccounts = snap.val() || {}; renderLeaderboard(); });
 
-  el('dailyRewardBtn').addEventListener('click', claimDailyReward);
-  setInterval(renderDailyReward, 60000);
-
   el('boardSearch').addEventListener('input', (e) => {
     boardSearchTerm = e.target.value.trim().toLowerCase();
     renderBoard();
@@ -1157,37 +1127,6 @@ function renderBadges() {
   });
 }
 
-async function claimDailyReward() {
-  const snap = await get(ref(db, 'users/' + myId));
-  const data = snap.val() || {};
-  const last = data.lastDailyClaim || 0;
-  if (Date.now() - last < DAY_MS) {
-    showToast('Already claimed today — come back later.');
-    return;
-  }
-  await runTransaction(ref(db, 'users/' + myId + '/likesGiven'), (n) => (n || 0) + 2);
-  await update(ref(db, 'users/' + myId), { lastDailyClaim: Date.now() });
-  showToast('Claimed! +2 likes toward your pass 🎁');
-}
-
-function renderDailyReward() {
-  const btn = el('dailyRewardBtn');
-  const status = el('dailyRewardStatus');
-  if (!btn) return;
-  const last = myProgress.lastDailyClaim || 0;
-  const elapsed = Date.now() - last;
-  if (elapsed >= DAY_MS) {
-    btn.disabled = false;
-    status.textContent = 'Come back daily for a free boost toward your pass!';
-  } else {
-    btn.disabled = true;
-    const remaining = DAY_MS - elapsed;
-    const hrs = Math.floor(remaining / 3600000);
-    const mins = Math.floor((remaining % 3600000) / 60000);
-    status.textContent = `Claimed! Next reward in ${hrs}h ${mins}m`;
-  }
-}
-
 function renderPass() {
   const pts = availablePoints();
   if (typeof lastKnownPoints === 'number' && pts > lastKnownPoints) {
@@ -1201,7 +1140,6 @@ function renderPass() {
   el('adminBadge').innerHTML = isAdmin ? '<span style="background:#ff5c7a;color:#0c0716;font-size:10px;padding:2px 8px;border-radius:4px;">ADMIN</span>' : '';
 
   renderBadges();
-  renderDailyReward();
 
   const submitBtn = el('submitBtn');
   const hint = el('submitHint');
